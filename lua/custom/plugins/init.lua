@@ -10,4 +10,5 @@ return {
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
   require 'kickstart.plugins.nvim_treesitter_textobjects',
+  require 'lambdasven.plugins.neotest',
 }
