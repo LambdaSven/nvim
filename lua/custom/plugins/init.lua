@@ -13,4 +13,5 @@ return {
   require 'lambdasven.plugins.neotest',
   require 'lambdasven.plugins.undotree',
   -- require 'lambdasven.plugins.dashboard',
+  require 'lambdasven.plugins.oil',
 }
