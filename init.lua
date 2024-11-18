@@ -541,6 +541,10 @@ require('lazy').setup({
         eslint = {},
         ts_ls = {},
         csharp_ls = {},
+        powershell_es = {
+          bundle_path = 'C:\\D2L\\Powershell_ES',
+          shell = 'powershell.exe',
+        },
         --fsharp_language_server = {},
         --
 
