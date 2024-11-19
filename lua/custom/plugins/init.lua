@@ -13,4 +13,7 @@ return {
   require 'lambdasven.plugins.neotest',
   require 'lambdasven.plugins.undotree',
   -- require 'lambdasven.plugins.dashboard',
+  --require 'lambdasven.plugins.neotest-playwright',
+  require 'lambdasven.plugins.vim-test',
+  require 'lambdasven.plugins.neotest-vim-test',
 }
