@@ -16,4 +16,5 @@ return {
   --require 'lambdasven.plugins.neotest-playwright',
   require 'lambdasven.plugins.vim-test',
   require 'lambdasven.plugins.neotest-vim-test',
+  require 'lambdasven.plugins.oil',
 }

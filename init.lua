@@ -545,6 +545,7 @@ require('lazy').setup({
           bundle_path = 'C:\\D2L\\Powershell_ES',
           shell = 'powershell.exe',
         },
+        ocamllsp = {},
         --fsharp_language_server = {},
         --
 
