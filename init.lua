@@ -70,6 +70,8 @@ vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -546,6 +548,7 @@ require('lazy').setup({
           shell = 'powershell.exe',
         },
         ocamllsp = {},
+        jsonls = {},
         --fsharp_language_server = {},
         --
 
@@ -793,6 +796,7 @@ require('lazy').setup({
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
+      require('mini.notify').setup()
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,

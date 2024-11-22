@@ -18,4 +18,6 @@ return {
   require 'lambdasven.plugins.neotest-vim-test',
   require 'lambdasven.plugins.oil',
   require 'lambdasven.plugins.nvim-jdtls',
+  require 'lambdasven.plugins.nvim-dap',
+  require 'lambdasven.plugins.nvim-dap-vscode-js',
 }
