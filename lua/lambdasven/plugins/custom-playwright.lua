@@ -57,6 +57,7 @@ function M.select_and_execute(regex, command)
   -- Create a new buffer for the test output
   local output_buf = vim.api.nvim_create_buf(true, true) -- Create a new empty buffer
   vim.api.nvim_buf_set_name(output_buf, 'Test Output') -- Set buffer name to "Test Output"
+  vim.cmd 'vsplit'
   vim.api.nvim_command('b ' .. output_buf) -- Switch to the new buffer
 
   show_selection(matches, function(selected_group)
@@ -89,6 +90,63 @@ function M.select_and_execute(regex, command)
       end,
     })
   end)
+end
+
+function M.run_test_at_cursor()
+  -- Get the current cursor position (line number)
+  local cursor_line = vim.api.nvim_win_get_cursor(0)[1]
+
+  -- Loop upwards through the lines to find the closest test title
+  local test_title = nil
+  for i = cursor_line - 1, 1, -1 do
+    local line = vim.api.nvim_buf_get_lines(0, i - 1, i, false)[1] -- Get the line (1-based index in Neovim)
+
+    -- Match the test title using a regex (e.g., `test('Test Title', ...)`)
+    test_title = line:match 'test%(%s*[\'"](.-)[\'"]'
+
+    -- If a test title is found, break the loop
+    if test_title then
+      break
+    end
+  end
+
+  -- If no test title was found, notify the user
+  if not test_title then
+    vim.notify('No test found above the cursor', vim.log.levels.ERROR)
+    return
+  end
+
+  -- Construct the npx command to run the test
+  local command = 'npx playwright test --headed --project=chromium -g ' .. vim.fn.shellescape(test_title)
+  print('Running test: ' .. test_title)
+
+  -- Run the command asynchronously using jobstart
+  local output_buf = vim.api.nvim_create_buf(true, true) -- Create a new empty buffer
+  vim.api.nvim_buf_set_name(output_buf, 'Test Output')
+  vim.cmd 'vsplit' -- Open in a new split
+  vim.api.nvim_command('b ' .. output_buf) -- Switch to the new buffer
+
+  vim.fn.jobstart(command, {
+    stdout_buffered = true,
+    stderr_buffered = true,
+    on_stdout = function(_, data)
+      if data then
+        vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, data)
+      end
+    end,
+    on_stderr = function(_, data)
+      if data then
+        vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, data)
+      end
+    end,
+    on_exit = function(_, exit_code)
+      if exit_code == 0 then
+        vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, { 'Test run completed successfully' })
+      else
+        vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, { 'Test run failed with exit code ' .. exit_code })
+      end
+    end,
+  })
 end
 
 -- Command to trigger the plugin

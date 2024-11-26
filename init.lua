@@ -904,3 +904,4 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 require('lambdasven.plugins.custom-playwright').setup()
+vim.api.nvim_set_keymap('n', '<leader>rt', ':lua require("lambdasven.plugins.custom-playwright").run_test_at_cursor()<CR>', { noremap = true, silent = true })
