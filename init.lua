@@ -545,7 +545,7 @@ require('lazy').setup({
           bundle_path = 'C:\\D2L\\Powershell_ES',
           shell = 'powershell.exe',
         },
-        ocamllsp = {},
+        -- ocamllsp = {},
         --fsharp_language_server = {},
         --
 
@@ -902,3 +902,5 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   command = 'silent! EslintFixAll',
   group = vim.api.nvim_create_augroup('TSFormat', {}),
 })
+
+require('lambdasven.plugins.custom-playwright').setup()

@@ -19,4 +19,6 @@ return {
   require 'lambdasven.plugins.oil',
   require 'lambdasven.plugins.nvim-dap',
   require 'lambdasven.plugins.nvim-dap-vscode-js',
+  --require 'lambdasven.plugins.custom-playwright',
+  require 'lambdasven.plugins.custom-playwright-plug',
 }
