@@ -66,8 +66,8 @@ function M.select_and_execute(regex, command)
 
     -- Run the command asynchronously using jobstart
     local _ = vim.fn.jobstart(full_command, {
-      stdout_buffered = true, -- Capture stdout in the buffer
-      stderr_buffered = true, -- Capture stderr in the buffer
+      stdout_buffered = false, -- Capture stdout in the buffer
+      stderr_buffered = false, -- Capture stderr in the buffer
       on_stdout = function(_, data)
         -- Write the output to the new buffer
         if data then
@@ -90,6 +90,41 @@ function M.select_and_execute(regex, command)
       end,
     })
   end)
+end
+
+function M.run_test_file()
+  -- get file name
+  local file_name = vim.api.nvim_buf_get_name(0):gsub('\\', '\\\\')
+  local command = 'npx playwright test --headed --project=chromium ' .. vim.fn.shellescape(file_name)
+  print('COMMAND:' .. command)
+
+  -- Run the command asynchronously using jobstart
+  local output_buf = vim.api.nvim_create_buf(true, true) -- Create a new empty buffer
+  vim.api.nvim_buf_set_name(output_buf, 'Test Output')
+  vim.cmd 'vsplit' -- Open in a new split
+  vim.api.nvim_command('b ' .. output_buf) -- Switch to the new buffer
+
+  vim.fn.jobstart(command, {
+    stdout_buffered = false,
+    stderr_buffered = false,
+    on_stdout = function(_, data)
+      if data then
+        vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, data)
+      end
+    end,
+    on_stderr = function(_, data)
+      if data then
+        vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, data)
+      end
+    end,
+    on_exit = function(_, exit_code)
+      if exit_code == 0 then
+        vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, { 'Test run completed successfully' })
+      else
+        vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, { 'Test run failed with exit code ' .. exit_code })
+      end
+    end,
+  })
 end
 
 function M.run_test_at_cursor()

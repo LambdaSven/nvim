@@ -766,7 +766,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'dawnfox'
+      vim.cmd.colorscheme 'dayfox'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
@@ -904,4 +904,18 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 require('lambdasven.plugins.custom-playwright').setup()
-vim.api.nvim_set_keymap('n', '<leader>rt', ':lua require("lambdasven.plugins.custom-playwright").run_test_at_cursor()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>rt',
+  ':lua require("lambdasven.plugins.custom-playwright").run_test_at_cursor()<CR>',
+  { noremap = true, desc = '[R]un [T]est above cursor' }
+)
+vim.api.nvim_set_keymap('n', '<leader>rf', ':SelectAndRun<CR>', { noremap = true, desc = '[R]un [F]ind specific test' })
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>ra',
+  ':lua require("lambdasven.plugins.custom-playwright").run_test_file()<CR>',
+  { noremap = true, desc = '[R]un [A]ll Playwright Tests' }
+)
+vim.api.nvim_set_keymap('n', '<leader>q', ':bd<CR>', { noremap = true, desc = '[Q]uit current buffer' })
+vim.api.nvim_set_keymap('n', '<leader>ww', ':w<CR>', { noremap = true, desc = '[W]rite [W]urrent buffer' })
