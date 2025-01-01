@@ -547,7 +547,6 @@ require('lazy').setup({
           bundle_path = 'C:\\D2L\\Powershell_ES',
           shell = 'powershell.exe',
         },
-        ocamllsp = {},
         jsonls = {},
         --fsharp_language_server = {},
         --
@@ -908,3 +907,5 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 
 vim.api.nvim_set_keymap('n', '<leader>q', ':bd<CR>', { noremap = true, desc = '[Q]uit current buffer' })
 vim.api.nvim_set_keymap('n', '<leader>ww', ':w<CR>', { noremap = true, desc = '[W]rite [W]urrent buffer' })
+
+require('lspconfig').ocamllsp.setup {}
