@@ -922,3 +922,4 @@ vim.api.nvim_set_keymap(
 )
 vim.api.nvim_set_keymap('n', '<leader>q', ':bd<CR>', { noremap = true, desc = '[Q]uit current buffer' })
 vim.api.nvim_set_keymap('n', '<leader>ww', ':w<CR>', { noremap = true, desc = '[W]rite [W]urrent buffer' })
+vim.api.nvim_set_keymap('n', '<leader>-', ':Oil<CR>', { noremap = true, desc = 'Open Oil' })
