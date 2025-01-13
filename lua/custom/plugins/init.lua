@@ -1,4 +1,4 @@
--- You can add your own plugins here or in other files in this directory!
+-- Yo can add your own plugins here or in other files in this directory!
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
@@ -21,4 +21,5 @@ return {
   require 'lambdasven.plugins.nvim-dap-vscode-js',
   --require 'lambdasven.plugins.custom-playwright',
   require 'lambdasven.plugins.custom-playwright-plug',
+  require 'lambdasven.plugins.inlay-hints',
 }
