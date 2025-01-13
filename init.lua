@@ -910,5 +910,5 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 
 vim.api.nvim_set_keymap('n', '<leader>q', ':bd<CR>', { noremap = true, desc = '[Q]uit current buffer' })
 vim.api.nvim_set_keymap('n', '<leader>ww', ':w<CR>', { noremap = true, desc = '[W]rite [W]urrent buffer' })
-
 require('lspconfig').ocamllsp.setup {}
+vim.api.nvim_set_keymap('n', '<leader>-', ':Oil<CR>', { noremap = true, desc = 'Open Oil' })
