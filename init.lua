@@ -463,6 +463,9 @@ require('lazy').setup({
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
+          --
+          --
+          map('<leader>td', vim.lsp.buf.hover, '[T]ype [D]efinition')
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed
@@ -547,7 +550,6 @@ require('lazy').setup({
           bundle_path = 'C:\\D2L\\Powershell_ES',
           shell = 'powershell.exe',
         },
-        ocamllsp = {},
         jsonls = {},
         --fsharp_language_server = {},
         --
@@ -769,7 +771,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'dawnfox'
+      vim.cmd.colorscheme 'dayfox'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
@@ -909,3 +911,4 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 vim.api.nvim_set_keymap('n', '<leader>q', ':bd<CR>', { noremap = true, desc = '[Q]uit current buffer' })
 vim.api.nvim_set_keymap('n', '<leader>ww', ':w<CR>', { noremap = true, desc = '[W]rite [W]urrent buffer' })
 vim.api.nvim_set_keymap('n', '<leader>-', ':Oil<CR>', { noremap = true, desc = 'Open Oil' })
+require('lspconfig').ocamllsp.setup {}
