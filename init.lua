@@ -71,6 +71,9 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+-- Light Mode by Default
+vim.o.background = 'light'
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -769,7 +772,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'dayfox'
+      vim.cmd.colorscheme 'lunaperche'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
@@ -923,3 +926,19 @@ vim.api.nvim_set_keymap(
 vim.api.nvim_set_keymap('n', '<leader>q', ':bd<CR>', { noremap = true, desc = '[Q]uit current buffer' })
 vim.api.nvim_set_keymap('n', '<leader>ww', ':w<CR>', { noremap = true, desc = '[W]rite [W]urrent buffer' })
 vim.api.nvim_set_keymap('n', '<leader>-', ':Oil<CR>', { noremap = true, desc = 'Open Oil' })
+vim.api.nvim_set_keymap('n', '<leader>dm', ':set bg=dark<CR>', { noremap = true, desc = '[d]ark [m]ode' })
+vim.api.nvim_set_keymap('n', '<leader>lm', ':set bg=light<CR>', { noremap = true, desc = '[l]ight [m]ode' })
+
+vim.g.copilot_no_tab_map = true
+
+-- Copilot Insert Mode Keymaps
+vim.api.nvim_set_keymap('i', '<C-k>', 'copilot#Previous()', { expr = true, replace_keycodes = false })
+vim.api.nvim_set_keymap('i', '<C-j>', 'copilot#Next()', { expr = true, replace_keycodes = false })
+vim.api.nvim_set_keymap('i', '<C-w>', 'copilot#AcceptWord()', { expr = true, replace_keycodes = false })
+vim.api.nvim_set_keymap('i', '<C-e>', 'copilot#AcceptLine()', { expr = true, replace_keycodes = false })
+
+-- Copilot Normal Mode Keymaps
+vim.keymap.set('n', '<leader>cp', ':Copilot panel<CR>')
+vim.keymap.set('n', '<leader>cc', ':CopilotChat<CR>')
+vim.keymap.set('n', '<leader>co', ':Copilot enable<CR>')
+vim.keymap.set('n', '<leader>cd', ':Copilot disable<CR>')

@@ -3,12 +3,14 @@
 --
 -- See the kickstart.nvim README for more information
 return {
+  require 'lambdasven.plugins.copilot-chat',
   require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'lambdasven.plugins.github-copilot',
   require 'kickstart.plugins.nvim_treesitter_textobjects',
   require 'lambdasven.plugins.neotest',
   require 'lambdasven.plugins.undotree',
