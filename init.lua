@@ -930,7 +930,7 @@ vim.api.nvim_set_keymap('n', '<leader>dm', ':set bg=dark<CR>', { noremap = true,
 vim.api.nvim_set_keymap('n', '<leader>lm', ':set bg=light<CR>', { noremap = true, desc = '[l]ight [m]ode' })
 
 vim.g.copilot_no_tab_map = true
-
+--[[
 -- Copilot Insert Mode Keymaps
 vim.api.nvim_set_keymap('i', '<C-k>', 'copilot#Previous()', { expr = true, replace_keycodes = false })
 vim.api.nvim_set_keymap('i', '<C-j>', 'copilot#Next()', { expr = true, replace_keycodes = false })
@@ -942,3 +942,4 @@ vim.keymap.set('n', '<leader>cp', ':Copilot panel<CR>')
 vim.keymap.set('n', '<leader>cc', ':CopilotChat<CR>')
 vim.keymap.set('n', '<leader>co', ':Copilot enable<CR>')
 vim.keymap.set('n', '<leader>cd', ':Copilot disable<CR>')
+--]]
