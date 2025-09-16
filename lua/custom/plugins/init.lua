@@ -24,4 +24,5 @@ return {
   --require 'lambdasven.plugins.custom-playwright',
   require 'lambdasven.plugins.custom-playwright-plug',
   require 'lambdasven.plugins.inlay-hints',
+  require 'lambdasven.plugins.marks',
 }
