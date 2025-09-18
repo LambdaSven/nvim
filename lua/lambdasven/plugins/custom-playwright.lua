@@ -1,4 +1,5 @@
 local M = {}
+local count = 0
 
 -- Utility function to find matches in the buffer
 local function find_matches(regex)
@@ -56,36 +57,37 @@ function M.select_and_execute(regex, command)
 
   -- Create a new buffer for the test output
   local output_buf = vim.api.nvim_create_buf(true, true) -- Create a new empty buffer
-  vim.api.nvim_buf_set_name(output_buf, 'Test Output') -- Set buffer name to "Test Output"
+  vim.api.nvim_buf_set_name(output_buf, 'Test Output ' .. count)
+  count = count + 1
   vim.cmd 'vsplit'
   vim.api.nvim_command('b ' .. output_buf) -- Switch to the new buffer
 
   show_selection(matches, function(selected_group)
     local full_command = 'npx playwright test --headed --project=chromium -g ' .. vim.fn.shellescape(selected_group)
-    print('Executing: ' .. full_command)
+    print('executing: ' .. full_command)
 
-    -- Run the command asynchronously using jobstart
+    -- run the command asynchronously using jobstart
     local _ = vim.fn.jobstart(full_command, {
-      stdout_buffered = false, -- Capture stdout in the buffer
-      stderr_buffered = false, -- Capture stderr in the buffer
+      stdout_buffered = false, -- capture stdout in the buffer
+      stderr_buffered = false, -- capture stderr in the buffer
       on_stdout = function(_, data)
-        -- Write the output to the new buffer
+        -- write the output to the new buffer
         if data then
           vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, data)
         end
       end,
       on_stderr = function(_, data)
-        -- Write error output to the buffer as well
+        -- write error output to the buffer as well
         if data then
           vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, data)
         end
       end,
       on_exit = function(_, exit_code)
-        -- Handle the process exit (e.g., notify user)
+        -- handle the process exit (e.g., notify user)
         if exit_code == 0 then
-          vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, { 'Test run completed successfully' })
+          vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, { 'test run completed successfully' })
         else
-          vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, { 'Test run failed with exit code ' .. exit_code })
+          vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, { 'test run failed with exit code ' .. exit_code })
         end
       end,
     })
@@ -100,7 +102,8 @@ function M.run_test_file()
 
   -- Run the command asynchronously using jobstart
   local output_buf = vim.api.nvim_create_buf(true, true) -- Create a new empty buffer
-  vim.api.nvim_buf_set_name(output_buf, 'Test Output')
+  vim.api.nvim_buf_set_name(output_buf, 'Test Output ' .. count)
+  count = count + 1
   vim.cmd 'vsplit' -- Open in a new split
   vim.api.nvim_command('b ' .. output_buf) -- Switch to the new buffer
 
@@ -157,13 +160,14 @@ function M.run_test_at_cursor()
 
   -- Run the command asynchronously using jobstart
   local output_buf = vim.api.nvim_create_buf(true, true) -- Create a new empty buffer
-  vim.api.nvim_buf_set_name(output_buf, 'Test Output')
+  vim.api.nvim_buf_set_name(output_buf, 'Test Output ' .. count)
+  count = count + 1
   vim.cmd 'vsplit' -- Open in a new split
   vim.api.nvim_command('b ' .. output_buf) -- Switch to the new buffer
 
   vim.fn.jobstart(command, {
-    stdout_buffered = true,
-    stderr_buffered = true,
+    stdout_buffered = false,
+    stderr_buffered = false,
     on_stdout = function(_, data)
       if data then
         vim.api.nvim_buf_set_lines(output_buf, -1, -1, false, data)
