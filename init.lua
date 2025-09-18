@@ -13,10 +13,10 @@ vim.g.have_nerd_font = true
 --  For more options, you can see `:help option-list`
 
 -- Make line numbers default
-vim.opt.number = true
+vim.opt.number = false
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -928,6 +928,8 @@ vim.api.nvim_set_keymap('n', '<leader>ww', ':w<CR>', { noremap = true, desc = '[
 vim.api.nvim_set_keymap('n', '<leader>-', ':Oil<CR>', { noremap = true, desc = 'Open Oil' })
 vim.api.nvim_set_keymap('n', '<leader>dm', ':set bg=dark<CR>', { noremap = true, desc = '[d]ark [m]ode' })
 vim.api.nvim_set_keymap('n', '<leader>lm', ':set bg=light<CR>', { noremap = true, desc = '[l]ight [m]ode' })
+vim.api.nvim_set_keymap('n', '<leader>la', ':set number!<CR>', { noremap = true, desc = 'Set Absolute [L]ine numbers, [A]bsolute' })
+vim.api.nvim_set_keymap('n', '<leader>lr', ':set relativenumber!<CR>', { noremap = true, desc = 'Toggle [L]ine numbers, [R]elative ' })
 
 vim.g.copilot_no_tab_map = true
 --[[
