@@ -982,3 +982,10 @@ require('marks').setup {
   },
   mappings = {},
 }
+
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>sc',
+  ':lua require("telescope.builtin").live_grep({search_dirs={vim.fn.expand("%:p")}})<CR>',
+  { noremap = true, desc = '[S]earch [C]urrent Buffer' }
+)
