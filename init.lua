@@ -989,3 +989,5 @@ vim.api.nvim_set_keymap(
   ':lua require("telescope.builtin").live_grep({search_dirs={vim.fn.expand("%:p")}})<CR>',
   { noremap = true, desc = '[S]earch [C]urrent Buffer' }
 )
+
+vim.api.nvim_create_user_command('CSV', 'CsvViewToggle', {})
