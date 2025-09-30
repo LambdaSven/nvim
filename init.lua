@@ -13,10 +13,10 @@ vim.g.have_nerd_font = true
 --  For more options, you can see `:help option-list`
 
 -- Make line numbers default
-vim.opt.number = true
+vim.opt.number = false
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -69,7 +69,9 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 
 -- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 0
+vim.o.background = 'light'
+
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 
@@ -771,7 +773,7 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'dayfox'
+      vim.cmd.colorscheme 'lunaperche'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
@@ -911,4 +913,53 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 vim.api.nvim_set_keymap('n', '<leader>q', ':bd<CR>', { noremap = true, desc = '[Q]uit current buffer' })
 vim.api.nvim_set_keymap('n', '<leader>ww', ':w<CR>', { noremap = true, desc = '[W]rite [W]urrent buffer' })
 vim.api.nvim_set_keymap('n', '<leader>-', ':Oil<CR>', { noremap = true, desc = 'Open Oil' })
+vim.api.nvim_set_keymap('n', '<leader>dm', ':set bg=dark<CR>', { noremap = true, desc = '[d]ark [m]ode' })
+vim.api.nvim_set_keymap('n', '<leader>lm', ':set bg=light<CR>', { noremap = true, desc = '[l]ight [m]ode' })
+vim.api.nvim_set_keymap('n', '<leader>la', ':set number!<CR>', { noremap = true, desc = 'Set Absolute [L]ine numbers, [A]bsolute' })
+vim.api.nvim_set_keymap('n', '<leader>lr', ':set relativenumber!<CR>', { noremap = true, desc = 'Toggle [L]ine numbers, [R]elative ' })
+
+require('marks').setup {
+  -- whether to map keybinds or not. default true
+  default_mappings = true,
+  -- which builtin marks to show. default {}
+  builtin_marks = { '.', '<', '>', '^' },
+  -- whether movements cycle back to the beginning/end of buffer. default true
+  cyclic = true,
+  -- whether the shada file is updated after modifying uppercase marks. default false
+  force_write_shada = false,
+  -- how often (in ms) to redraw signs/recompute mark positions.
+  -- higher values will have better performance but may cause visual lag,
+  -- while lower values may cause performance penalties. default 150.
+  refresh_interval = 250,
+  -- sign priorities for each type of mark - builtin marks, uppercase marks, lowercase
+  -- marks, and bookmarks.
+  -- can be either a table with all/none of the keys, or a single number, in which case
+  -- the priority applies to all marks.
+  -- default 10.
+  sign_priority = { lower = 10, upper = 15, builtin = 8, bookmark = 20 },
+  -- disables mark tracking for specific filetypes. default {}
+  excluded_filetypes = {},
+  -- disables mark tracking for specific buftypes. default {}
+  excluded_buftypes = {},
+  -- marks.nvim allows you to configure up to 10 bookmark groups, each with its own
+  -- sign/virttext. Bookmarks can be used to group together positions and quickly move
+  -- across multiple buffers. default sign is '!@#$%^&*()' (from 0 to 9), and
+  -- default virt_text is "".
+  bookmark_0 = {
+    sign = '⚑',
+    virt_text = 'hello world',
+    -- explicitly prompt for a virtual line annotation when setting a bookmark from this group.
+    -- defaults to false.
+    annotate = false,
+  },
+  mappings = {},
+}
+
+vim.api.nvim_set_keymap(
+  'n',
+  '<leader>sc',
+  ':lua require("telescope.builtin").live_grep({search_dirs={vim.fn.expand("%:p")}})<CR>',
+  { noremap = true, desc = '[S]earch [C]urrent Buffer' }
+)
+
 require('lspconfig').ocamllsp.setup {}
